@@ -9,26 +9,25 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         System.out.println("Hello, welcome to Biblioteca!");
         System.out.println("***************************************************");
-        switch (menu()) {
-            case 1:
-                System.out.println("you selected 1");
-                showBooks();
-                break;
-            case 2:
-                System.out.println("you selected 2");
-                break;
-            default:
-                break;
-        }
-    }
-
-    public static int menu() {
-        Scanner input = new Scanner(System.in);
         System.out.println("Choose from these choices");
         System.out.println("1 - Show books");
         System.out.println("2 - Quit");
 
-        return input.nextInt();
+        Scanner input = new Scanner(System.in);
+        int userChoice = input.nextInt();
+        while (userChoice != 2 ){
+
+            switch (userChoice) {
+                case 1:
+                    System.out.println("you selected 1");
+                    showBooks();
+                    break;
+                default:
+                    System.out.println("Select a valid option!");
+                    break;
+            }
+            userChoice = input.nextInt();
+        }
     }
 
     public static void showBooks() {
