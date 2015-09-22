@@ -7,20 +7,23 @@ import java.util.Scanner;
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello, welcome to Biblioteca!");
-        System.out.println("***************************************************");
-        System.out.println("Choose from these choices");
-        System.out.println("1 - Show books");
-        System.out.println("2 - Quit");
+
+        Utils.showWelcomeMessages();
+        Utils.showChoicesMessages();
 
         Scanner input = new Scanner(System.in);
         int userChoice = input.nextInt();
-        while (userChoice != 2 ){
 
+        while (userChoice != 3){
             switch (userChoice) {
                 case 1:
-                    System.out.println("you selected 1");
-                    showBooks();
+                    System.out.println("All books:");
+                    showBooks(allBooks());
+                    break;
+                case 2:
+                    System.out.println("Please input the name of the book you want to checkout:");
+                    String bookName = input.next();
+                    showBooks(checkoutBook(bookName));
                     break;
                 default:
                     System.out.println("Select a valid option!");
@@ -30,15 +33,31 @@ public class BibliotecaApp {
         }
     }
 
-    public static void showBooks() {
+    public static List<Book> allBooks() {
         List<Book> books = new ArrayList<Book>();
-        Book book1 = new Book("Zero to One: Notes on Startups, or How to Build", "Peter Thiel，Blake Masters", 2014);
-        Book book2 = new Book("深入分析Java Web技术内幕", "许令波", 2009);
+        Book book1 = new Book("book1", "author1", 2014, false);
+        Book book2 = new Book("book2", "author2", 2009, false);
         books.add(book1);
         books.add(book2);
 
+        return books;
+    }
+
+    public static void showBooks(List<Book> books) {
         for (Book book : books) {
-            System.out.println("Book: " + book.getName() + " Author: " + book.getAuthor() + " Year: " + book.getYear());
+            if (!book.isBorrowed()){
+                System.out.println("Book: " + book.getName() + " Author: " + book.getAuthor() + " Year: " + book.getYear());
+            }
         }
+    }
+
+    public static List<Book> checkoutBook(String bookName) {
+        List<Book> books = allBooks();
+        for (Book book : books) {
+            if(book.getName().equals(bookName)){
+                book.setIsBorrowed(true);
+            }
+        }
+        return books;
     }
 }
