@@ -10,6 +10,7 @@ public class Utils {
         System.out.println("Choose from these choices");
         System.out.println("1 - Show books");
         System.out.println("2 - Checkout book");
-        System.out.println("3 - Quit");
+        System.out.println("3 - Return book");
+        System.out.println("0 - Quit");
     }
 }

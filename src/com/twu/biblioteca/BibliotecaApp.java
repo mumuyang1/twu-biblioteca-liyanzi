@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
+import com.twu.biblioteca.Entity.Book;
+import com.twu.biblioteca.Service.BookService;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,33 +16,37 @@ public class BibliotecaApp {
         Scanner input = new Scanner(System.in);
         int userChoice = input.nextInt();
 
-        while (userChoice != 3){
+        while (userChoice != 0){
             switch (userChoice) {
                 case 1:
                     System.out.println("All books:");
-                    showBooks(allBooks());
+                    showBooks(BookService.allBooks());
                     break;
                 case 2:
                     System.out.println("Please input the name of the book you want to checkout:");
-                    String bookName = input.next();
-                    showBooks(checkoutBook(bookName));
+                    String checkoutBook = input.next();
+                    if (BookService.isAvailable(checkoutBook)){
+                        BookService.checkoutBook(checkoutBook);
+                        System.out.println("Thank you! Enjoy the book.");
+                    }else {
+                        System.out.println("That book is not available");
+                    }
                     break;
+                case 3:
+                    System.out.println("Please input the name of the book you want to return:");
+                    String returnBook = input.next();
+                    if (BookService.isAvailable(returnBook)){
+                        System.out.println("That is not a valid book to return.");
+                    }else {
+                        BookService.returnBook(returnBook);
+                        System.out.println("Thank you for returning the book.");
+                    }
                 default:
                     System.out.println("Select a valid option!");
                     break;
             }
             userChoice = input.nextInt();
         }
-    }
-
-    public static List<Book> allBooks() {
-        List<Book> books = new ArrayList<Book>();
-        Book book1 = new Book("book1", "author1", 2014, false);
-        Book book2 = new Book("book2", "author2", 2009, false);
-        books.add(book1);
-        books.add(book2);
-
-        return books;
     }
 
     public static void showBooks(List<Book> books) {
@@ -51,13 +57,5 @@ public class BibliotecaApp {
         }
     }
 
-    public static List<Book> checkoutBook(String bookName) {
-        List<Book> books = allBooks();
-        for (Book book : books) {
-            if(book.getName().equals(bookName)){
-                book.setIsBorrowed(true);
-            }
-        }
-        return books;
-    }
+
 }
