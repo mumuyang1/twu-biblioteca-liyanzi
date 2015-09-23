@@ -46,4 +46,12 @@ public class BookService {
         }
         return books;
     }
+
+    public static void showBooks(List<Book> books) {
+        for (Book book : books) {
+            if (!book.isBorrowed()){
+                System.out.println(book.getName() + " Author: " + book.getAuthor() + " Year: " + book.getYear());
+            }
+        }
+    }
 }

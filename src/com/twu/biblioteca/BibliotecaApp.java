@@ -1,9 +1,8 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.Entity.Book;
 import com.twu.biblioteca.Service.BookService;
+import com.twu.biblioteca.Service.MovieService;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -20,7 +19,7 @@ public class BibliotecaApp {
             switch (userChoice) {
                 case 1:
                     System.out.println("All books:");
-                    showBooks(BookService.allBooks());
+                    BookService.showBooks(BookService.allBooks());
                     break;
                 case 2:
                     System.out.println("Please input the name of the book you want to checkout:");
@@ -41,6 +40,20 @@ public class BibliotecaApp {
                         BookService.returnBook(returnBook);
                         System.out.println("Thank you for returning the book.");
                     }
+                case 4:
+                    System.out.println("All movies:");
+                    MovieService.showMovies(MovieService.allMovies());
+                    break;
+                case 5:
+                    System.out.println("Please input the name of the movie you want to checkout:");
+                    String checkoutMovie = input.next();
+                    if (MovieService.isAvailable(checkoutMovie)){
+                        MovieService.checkoutMovie(checkoutMovie);
+                        System.out.println("Thank you! Enjoy the movie.");
+                    }else {
+                        System.out.println("That movie is not available");
+                    }
+                    break;
                 default:
                     System.out.println("Select a valid option!");
                     break;
@@ -48,14 +61,4 @@ public class BibliotecaApp {
             userChoice = input.nextInt();
         }
     }
-
-    public static void showBooks(List<Book> books) {
-        for (Book book : books) {
-            if (!book.isBorrowed()){
-                System.out.println("Book: " + book.getName() + " Author: " + book.getAuthor() + " Year: " + book.getYear());
-            }
-        }
-    }
-
-
 }

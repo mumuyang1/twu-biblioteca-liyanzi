@@ -11,6 +11,9 @@ public class Utils {
         System.out.println("1 - Show books");
         System.out.println("2 - Checkout book");
         System.out.println("3 - Return book");
+        System.out.println("4 - All movies");
+        System.out.println("5 - Checkout movie");
+        System.out.println("6 - Return movie");
         System.out.println("0 - Quit");
     }
 }
